@@ -4,51 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+    <title>Calculadora de Horas</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="card">
+            <div class="section">Calculadora de Horas</div>
+            <div class="input-group">
+                <label for="HoraInicio MinutoInicio">Inicio - Hora / Minutos</label>                              
+                <input type="number" id="HoraInicio"/>                          
+                <input type="number" id="MinutoInicio"/>                                
+            </div>
+            <div class="input-group">
+                <label for="HoraFim MinutoFim">Final - Hora / Minutos</label>                
+                <input type="number" id="HoraFim"/>
+                <input type="number" id="MinutoFim"/>                
+            </div>
+            <button class="primary" onclick="AdicionaCalculaHoras()">Calcular</button>
+        </div>
+        <div class="card">
+            <div class="section"><h3 id="valorSaldo">0.00</h3></div>
+            <div id="lista" class="section"></div>
+        </div>
+    </div> 
 </body>
-<script>
-/////model////
-const HorasTrabalhadas = {
-    getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim){
-        return ((HoraFim - HoraInicio) + ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;        
-    }
-}
-//////view/////
-const AlteraValoresHtml = {
-    insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim){
-        var secao = document.getElementById("lista");
-        var novaSecao = document.createElement('div');
-        novaSecao.innerHTML = "Hora Inicio " + HoraInicio + ":" + MinutoInicio + " Hora Final " + HoraFim + ":" + MinutoFim;
-        secao.appendChild(novaSecao);       
-    },
-    atualizaSaldo(){
-        var LabelSaldo = document.getElementById("valorSaldo");
-        LabelSaldo.innerHTML = saldo;
-    },
-    limpaCampos(){
-        document.getElementById('HoraInicio').value = "";
-        document.getElementById('MinutoInicio').value = "";
-        document.getElementById('HoraFim').value = "";
-        document.getElementById('MinutoFim').value = "";
-    }
-}
-////controller
-var saldo = 0;
-
-function AdicionaCalculaHoras(){
-    var HoraInicio = document.getElementById('HoraInicio').value;
-    var MinutoInicio = document.getElementById('MinutoInicio').value;
-    var HoraFim = document.getElementById('HoraFim').value;
-    var MinutoFim = document.getElementById('MinutoFim').value;
-
-    saldo += HorasTrabalhadas.getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
-
-    AlteraValoresHtml.insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
-    AlteraValoresHtml.atualizaSaldo();
-    AlteraValoresHtml.limpaCampos();
-}
-</script>
+<script src="./CalculadoraHoras.js"></script>
 </html>
