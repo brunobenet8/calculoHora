@@ -1,7 +1,11 @@
 /////model////
 const HorasTrabalhadas = {
-    getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim){
-        return ((HoraFim - HoraInicio) + ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;        
+    getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim){ 
+        if(MinutoInicio <= MinutoFim){
+            return ((HoraFim - HoraInicio) + ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;            
+        }else{     
+        return ((HoraFim - HoraInicio) - ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;            
+        }
     }
 }
 //////view/////
@@ -10,7 +14,7 @@ const AlteraValoresHtml = {
         var secao = document.getElementById("lista");
         var novaSecao = document.createElement('div');
         novaSecao.setAttribute('class', 'section');
-        novaSecao.innerHTML = "<strong>Inicio: </strong> " + HoraInicio + ":" + MinutoInicio + " <strong>Final: </strong> " + HoraFim + ":" + MinutoFim ;
+        novaSecao.innerHTML = "<strong>Inicio: </strong> " + HoraInicio + ":" + MinutoInicio + " <strong>Final: </strong> " + HoraFim + ":" + MinutoFim + " <Strong>Valor: </strong>"+ SaldoUltimaHora;
         secao.appendChild(novaSecao);       
     },
     atualizaSaldo(){
@@ -29,6 +33,7 @@ const AlteraValoresHtml = {
 }
 ////controller
 var saldo = 0;
+var SaldoUltimaHora = 0;
 function AdicionaCalculaHoras(){
     var HoraInicio = document.getElementById('HoraInicio').value;
     var MinutoInicio = document.getElementById('MinutoInicio').value;
@@ -36,6 +41,7 @@ function AdicionaCalculaHoras(){
     var MinutoFim = document.getElementById('MinutoFim').value;
 
     saldo += HorasTrabalhadas.getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
+    SaldoUltimaHora = HorasTrabalhadas.getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
 
     AlteraValoresHtml.insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
     AlteraValoresHtml.atualizaSaldo();
