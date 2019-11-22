@@ -9,12 +9,16 @@ const AlteraValoresHtml = {
     insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim){
         var secao = document.getElementById("lista");
         var novaSecao = document.createElement('div');
-        novaSecao.innerHTML = "Hora Inicio " + HoraInicio + ":" + MinutoInicio + " Hora Final " + HoraFim + ":" + MinutoFim;
+        novaSecao.setAttribute('class', 'section');
+        novaSecao.innerHTML = "<strong>Inicio: </strong> " + HoraInicio + ":" + MinutoInicio + " <strong>Final: </strong> " + HoraFim + ":" + MinutoFim ;
         secao.appendChild(novaSecao);       
     },
     atualizaSaldo(){
         var LabelSaldo = document.getElementById("valorSaldo");
         LabelSaldo.innerHTML = saldo;
+    },
+    validaCampos(){
+
     },
     limpaCampos(){
         document.getElementById('HoraInicio').value = "";
@@ -30,7 +34,9 @@ function AdicionaCalculaHoras(){
     var MinutoInicio = document.getElementById('MinutoInicio').value;
     var HoraFim = document.getElementById('HoraFim').value;
     var MinutoFim = document.getElementById('MinutoFim').value;
+
     saldo += HorasTrabalhadas.getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
+
     AlteraValoresHtml.insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
     AlteraValoresHtml.atualizaSaldo();
     AlteraValoresHtml.limpaCampos();
