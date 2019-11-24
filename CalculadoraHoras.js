@@ -1,10 +1,18 @@
 /////model////
 const HorasTrabalhadas = {
     getCalculoHoraParaValor(HoraInicio, MinutoInicio, HoraFim, MinutoFim){ 
-        if(MinutoInicio <= MinutoFim){
-            return ((HoraFim - HoraInicio) + ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;            
-        }else{     
-            return ((HoraFim - HoraInicio) - ( ((MinutoFim - MinutoInicio)/60)* -1)) * 6;            
+        if(HoraFim == HoraInicio){
+            if(MinutoInicio <= MinutoFim){
+                return ((HoraFim - HoraInicio) + (((MinutoFim - MinutoInicio)/60))) * 6;            
+            }else{  
+                return ((HoraFim - HoraInicio) + (((MinutoFim - MinutoInicio)/60))) * 6;            
+            }
+        }else{
+            if(MinutoInicio <= MinutoFim){
+                return ((HoraFim - HoraInicio) + (((MinutoFim - MinutoInicio)/60))) * 6;            
+            }else{   
+                return ((HoraFim - HoraInicio) + (((MinutoFim - MinutoInicio)/60))) * 6;            
+            }
         }
     }
 }
@@ -23,9 +31,6 @@ const AlteraValoresHtml = {
 
         var LabelTotaldeHoras = document.getElementById("TotaldeHoras");
         LabelTotaldeHoras.innerHTML = TotaldeHoras;
-    },
-    validaCampos(){
-
     },
     limpaCampos(){
         document.getElementById('HoraInicio').value = "";
@@ -49,7 +54,7 @@ function AdicionaCalculaHoras(){
     
     saldo += getCalculoHoraParaValor;
     SaldoUltimaHora = parseFloat((getCalculoHoraParaValor).toFixed(2));
-    TotaldeHoras += parseInt(getCalculoHoraParaValor/6) + (((getCalculoHoraParaValor/6) - parseInt(getCalculoHoraParaValor/6))*0.6);
+    TotaldeHoras = parseInt(saldo/6) + (((saldo/6) - parseInt(saldo/6))*0.6);
 
     AlteraValoresHtml.insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
     AlteraValoresHtml.atualizaSaldo();
