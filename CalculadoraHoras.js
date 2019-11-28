@@ -22,15 +22,15 @@ const AlteraValoresHtml = {
         var secao = document.getElementById("lista");
         var novaSecao = document.createElement('div');
         novaSecao.setAttribute('class', 'section');
-        novaSecao.innerHTML = "<strong>Inicio: </strong> " + HoraInicio + ":" + MinutoInicio + " <strong>Final: </strong> " + HoraFim + ":" + MinutoFim + " <Strong>Valor: </strong>"+ SaldoUltimaHora;
+        novaSecao.innerHTML = HoraInicio + ":" + MinutoInicio + " <strong>às</strong> " + HoraFim + ":" + MinutoFim + " <Strong> - R$ </strong>"+ SaldoUltimaHora.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + " <strong> Hrs: </strong> " + (parseInt(SaldoUltimaHora/6) + (((SaldoUltimaHora/6) - parseInt(SaldoUltimaHora/6))*0.6)).toFixed(2).replace(".", ":");
         secao.appendChild(novaSecao);       
     },
     atualizaSaldo(){
         var LabelSaldo = document.getElementById("valorSaldo");
-        LabelSaldo.innerHTML = saldo;
+        LabelSaldo.innerHTML = 'R$ ' + saldo.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
         var LabelTotaldeHoras = document.getElementById("TotaldeHoras");
-        LabelTotaldeHoras.innerHTML = TotaldeHoras;
+        LabelTotaldeHoras.innerHTML = TotaldeHoras.toFixed(2).replace(".", ":");
     },
     limpaCampos(){
         document.getElementById('HoraInicio').value = "";
@@ -54,7 +54,7 @@ function AdicionaCalculaHoras(){
     
     saldo += getCalculoHoraParaValor;
     SaldoUltimaHora = parseFloat((getCalculoHoraParaValor).toFixed(2));
-    TotaldeHoras = parseInt(saldo/6) + (((saldo/6) - parseInt(saldo/6))*0.6);
+    TotaldeHoras = parseFloat((parseInt(saldo/6) + (((saldo/6) - parseInt(saldo/6))*0.6)).toFixed(2));
 
     AlteraValoresHtml.insereDadosLista(HoraInicio, MinutoInicio, HoraFim, MinutoFim);
     AlteraValoresHtml.atualizaSaldo();
